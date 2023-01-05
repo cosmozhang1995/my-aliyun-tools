@@ -1,0 +1,16 @@
+2023-01-05 17:06:07,867 Running ECS security group updater
+2023-01-05 17:06:10,035 Add rule: SourceCidrIp=125.94.203.179 PortRange=22/22, 8080/8080
+2023-01-05 17:08:11,855 Running ECS security group updater
+2023-01-05 17:08:12,785 Add rule: SourceCidrIp=125.94.203.179 PortRange=22/22
+2023-01-05 17:08:12,786 Add rule: SourceCidrIp=125.94.203.179 PortRange=8080/8080
+2023-01-05 17:09:16,564 Running ECS security group updater
+2023-01-05 17:09:19,495 Add rule: SourceCidrIp=125.94.203.179 PortRange=22/22
+2023-01-05 17:09:19,495 Add rule: SourceCidrIp=125.94.203.179 PortRange=8080/8080
+2023-01-05 17:09:28,980 Running ECS security group updater
+2023-01-05 17:10:42,540 Running ECS security group updater
+2023-01-05 17:10:43,500 Add rule: SourceCidrIp=125.94.203.179 PortRange=22/22
+2023-01-05 17:10:43,501 Add rule: SourceCidrIp=125.94.203.179 PortRange=8080/8080
+2023-01-05 17:10:50,805 Running ECS security group updater
+2023-01-05 17:11:27,541 Running ECS security group updater
+2023-01-05 17:11:31,871 Running ECS security group updater
+2023-01-05 17:11:36,195 Running ECS security group updater
