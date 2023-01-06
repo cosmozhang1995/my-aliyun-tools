@@ -5,7 +5,6 @@ from collections import namedtuple
 import win32gui, win32api, win32con, win32file, pywintypes
 from update_security_group import UpdateExecutor, LOG_FILE, TAG
 
-
 PID_FILE = os.path.join(win32api.GetTempPath(), re.sub(r'\.\w+$', '.pid', os.path.basename(__file__)))
 
 try:
@@ -60,7 +59,7 @@ NotifycationData = namedtuple("NOTIFYCATIONDATA",
 
 def make_notify(
         hWnd=None,
-        tip=f"ECS安全组监控中，目标描述“{TAG}”",
+        tip=f"ECS安全组未监控，目标描述“{TAG}”",
         info=None,
         uTimeout=0):
     uInfoFlags = 0
@@ -137,6 +136,12 @@ hWnd = win32gui.CreateWindow(
     )
 
 def update_executor_monitor(err, n_delete=None, n_add=None):
+    if update_executor.is_executing:
+        tip = f"正在执行ECS安全组更新，目标描述“{TAG}”"
+    elif update_executor.is_scheduling:
+        tip = f"ECS安全组监控中，目标描述“{TAG}”"
+    else:
+        tip = f"ECS安全组未监控，目标描述“{TAG}”"
     if err == UpdateExecutor.MSG_UPDATE_SUCCESS:
         if n_delete != 0 or n_add != 0:
             info_msg = "ECS安全组进行了更新"
@@ -148,11 +153,10 @@ def update_executor_monitor(err, n_delete=None, n_add=None):
         else:
             win32gui.Shell_NotifyIcon(win32gui.NIM_MODIFY, make_notify(hWnd))
     elif err == UpdateExecutor.MSG_UPDATE_FAILED:
-        win32gui.Shell_NotifyIcon(win32gui.NIM_MODIFY, make_notify(hWnd, info="ECS安全组更新失败"))
-    elif err == UpdateExecutor.MSG_UPDATE_START:
-        win32gui.Shell_NotifyIcon(win32gui.NIM_MODIFY, make_notify(hWnd, tip=f"正在执行ECS安全组更新，目标描述“{TAG}”"))
-    elif err == UpdateExecutor.MSG_UPDATE_BUSY:
-        win32gui.Shell_NotifyIcon(win32gui.NIM_MODIFY, make_notify(hWnd))
+        win32gui.Shell_NotifyIcon(win32gui.NIM_MODIFY, make_notify(hWnd, tip=tip, info="ECS安全组更新失败"))
+    else:
+        win32gui.Shell_NotifyIcon(win32gui.NIM_MODIFY, make_notify(hWnd, tip=tip))
+
 
 update_executor.monitor = update_executor_monitor
 
